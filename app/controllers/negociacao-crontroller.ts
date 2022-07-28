@@ -21,19 +21,18 @@ export class NegociacaoController {
   adiciona(): void {
     const negociacao = this.criaNegociacao();
     this.negociacoes.adiciona(negociacao);
-    this.negociacoesView.update(this.negociacoes);
-    this.mensagemView.update('Negociação adicionada com sucesso!');
     this.limparFormulario();
+    this.atualizaView();
   }
-  
+
   criaNegociacao(): Negociacao {
-    
+
     const exp = /-/g; // Regular expressions https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions
     const date = new Date(this.inputData.value.replace(exp, ',')); // quando a exp. regular encontrar o valor, irá substituir por ','
     const quantidade = parseInt(this.inputQuantidade.value);
     const valor = parseFloat(this.inputValor.value);
     return new Negociacao(date, quantidade, valor);
-    
+
   }
 
   limparFormulario(): void {
@@ -41,6 +40,11 @@ export class NegociacaoController {
     this.inputQuantidade.value = '';
     this.inputValor.value = '';
     this.inputData.focus();
+  }
+
+  private atualizaView(): void {
+    this.negociacoesView.update(this.negociacoes);
+    this.mensagemView.update('Negociação adicionada com sucesso!');
   }
 
 }
