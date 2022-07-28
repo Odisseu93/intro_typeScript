@@ -18,14 +18,14 @@ export class NegociacaoController {
     this.negociacoesView.update(this.negociacoes);
   }
 
-  adiciona(): void {
+  public adiciona(): void {
     const negociacao = this.criaNegociacao();
     this.negociacoes.adiciona(negociacao);
     this.limparFormulario();
     this.atualizaView();
   }
 
-  criaNegociacao(): Negociacao {
+  private criaNegociacao(): Negociacao {
 
     const exp = /-/g; // Regular expressions https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions
     const date = new Date(this.inputData.value.replace(exp, ',')); // quando a exp. regular encontrar o valor, irá substituir por ','
@@ -35,7 +35,7 @@ export class NegociacaoController {
 
   }
 
-  limparFormulario(): void {
+  private limparFormulario(): void {
     this.inputData.value = '';
     this.inputQuantidade.value = '';
     this.inputValor.value = '';
