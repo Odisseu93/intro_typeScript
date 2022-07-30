@@ -21,7 +21,11 @@ export class NegociacaoController {
   }
 
   public adiciona(): void {
-    const negociacao = this.criaNegociacao();
+    const negociacao = Negociacao.criaDe(
+        this.inputData.value,
+        this.inputQuantidade.value,
+        this.inputValor.value
+    );
       if(!this.ehDiaUtil(negociacao.data)){
         this.mensagemView
         .update('Apenas negociações em dias úteis são aceitas');
@@ -34,16 +38,7 @@ export class NegociacaoController {
   }
 
   private ehDiaUtil(data: Date) {
-    return data.getDay() > DiaDaSemana.DOMINGO && data.getDay() < DiaDaSemana.SABADO }
-
-  private criaNegociacao(): Negociacao {
-
-    const exp = /-/g; // Regular expressions https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions
-    const date = new Date(this.inputData.value.replace(exp, ',')); // quando a exp. regular encontrar o valor, irá substituir por ','
-    const quantidade = parseInt(this.inputQuantidade.value);
-    const valor = parseFloat(this.inputValor.value);
-    return new Negociacao(date, quantidade, valor);
-
+    return data.getDay() > DiaDaSemana.DOMINGO && data.getDay() < DiaDaSemana.SABADO 
   }
 
   private limparFormulario(): void {
